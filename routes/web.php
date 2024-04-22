@@ -14,6 +14,11 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::get('/bookmarks', function () {
+    // You can replace this with the actual controller method or view for the bookmarks page
+    return Inertia::render('Bookmarks');
+})->middleware(['auth'])->name('bookmarks');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified', IsAdmin::class])->name('dashboard');
