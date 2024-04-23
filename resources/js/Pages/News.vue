@@ -45,8 +45,8 @@ const submit = () => {
         </Link>
       </div>
 
-      <div class="w-full p-4">
-        <img :src="'/storage/' + news.image" :alt="news.title + ' image'" class="w-full h-auto" />
+      <div class="w-full p-4 flex items-center justify-center drop-shadow">
+        <img :src="'/storage/' + news.image" :alt="news.title + ' image'" class="w-[50vw] h-auto rounded-md" />
       </div>
 
       <div class="w-full">
@@ -61,7 +61,8 @@ const submit = () => {
         <h3 class="text-gray-800 text-xl font-bold">Comments</h3>
         <form v-if="$page.props.auth.user" @submit.prevent="submit" class="mt-4">
           <div class="flex flex-row items-center gap-4">
-            <textarea v-model="form.content" class="w-full p-2 border border-gray-300 rounded" placeholder="Write a comment..." />
+            <textarea v-model="form.content" class="w-full p-2 border border-gray-300 rounded"
+              placeholder="Write a comment..." />
             <button type="submit" class="bg-green-300 text-gray-900 px-4 py-2 rounded hover:bg-green-400">Post</button>
           </div>
         </form>
@@ -71,7 +72,8 @@ const submit = () => {
         </div>
 
         <div class="flex flex-col items-center gap-4 mt-4">
-          <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-1 bg-gray-50 px-4 py-2 rounded-lg w-full">
+          <div v-for="comment in comments" :key="comment.id"
+            class="flex flex-col gap-1 bg-gray-50 px-4 py-2 rounded-lg w-full">
             <h4 class="font-semibold">
               {{ comment.user.name }}
             </h4>
@@ -85,4 +87,3 @@ const submit = () => {
 
   </main>
 </template>
-
