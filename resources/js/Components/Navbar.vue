@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/vue3';
 
 const menus = ref([
   { name: 'Home', route: 'home' },
-  { name: 'Search', route: 'home' },
+  { name: 'Search', route: 'search' },
   { name: 'Bookmarks', route: 'bookmarks' },
 ]);
 </script>

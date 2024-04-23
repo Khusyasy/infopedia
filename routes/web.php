@@ -8,7 +8,9 @@ use Inertia\Inertia;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserNewsController;
+use App\Http\Controllers\SearchController;
 
+Route::get('/search',[SearchController::class, 'index'])->name('search');
 Route::get('/', [UserNewsController::class, 'index'])->name('home');
 
 Route::get('/bookmarks', function () {
@@ -31,6 +33,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
 
 Route::get('/{slug}', [UserNewsController::class, 'show'])->name('unews');
 Route::post('/{slug}/bookmark', [UserNewsController::class, 'show'])->name('unews.bookmark');
