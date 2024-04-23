@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\News;
 use Inertia\Response;
@@ -33,9 +32,10 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $news = new News();
+        $image = $request->file('image')->store('news', 'public');
         $news->title = $request->title;
         $news->content = $request->content;
-        $news->image = null; // TODO: Implement image upload
+        $news->image = $image;
         $news->slug = $request->slug;
         $news->user_id = auth()->id();
         $news->save();

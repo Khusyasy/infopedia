@@ -75,7 +75,7 @@ const submit = () => {
             <div>
               <label for="image" class="block text-sm font-medium text-white">Image</label>
               <input type="file" name="image" id="image" @change="form.image = $event.target.files[0]"
-                class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                class="text-white mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
             </div>
 
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

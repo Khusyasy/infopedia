@@ -46,7 +46,7 @@ const submit = () => {
       </div>
 
       <div class="w-full p-4">
-        <img :src="news.image" :alt="news.title + ' image'" class="w-full h-auto" />
+        <img :src="'/storage/' + news.image" :alt="news.title + ' image'" class="w-full h-auto" />
       </div>
 
       <div class="w-full">
