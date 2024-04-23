@@ -76,9 +76,3 @@ const submit = () => {
     </div>
   </main>
 </template>
-
-<style>
-.prose {
-  @apply text-gray-800;
-}
-</style>
