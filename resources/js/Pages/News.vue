@@ -50,9 +50,9 @@ const submit = () => {
       </div>
 
       <div class="w-full">
-        <p class="text-gray-800 text-base">
-          {{ news.content }}
-        </p>
+        <div class="text-gray-800 text-base prose" v-html="news.content">
+
+        </div>
       </div>
     </div>
 
@@ -85,3 +85,4 @@ const submit = () => {
 
   </main>
 </template>
+
