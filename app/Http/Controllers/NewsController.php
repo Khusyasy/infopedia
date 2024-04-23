@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\News;
 use Inertia\Response;
 use Inertia\Inertia;
+
 class NewsController extends Controller
 {
     /**
@@ -23,10 +24,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //create new news from news table
-        
-        
-
+        return inertia::render('Admin/News/Form');
     }
 
     /**
@@ -34,7 +32,15 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $news = new News();
+        $news->title = $request->title;
+        $news->content = $request->content;
+        $news->image = null; // TODO: Implement image upload
+        $news->slug = $request->slug;
+        $news->user_id = auth()->id();
+        $news->save();
+
+        return redirect()->route('news.index')->with('success', 'News created successfully');
     }
 
     /**
@@ -42,7 +48,10 @@ class NewsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $news = News::find($id);
+        return inertia::render('Admin/News/Show', [
+            'news' => $news
+        ]);
     }
 
     /**
@@ -50,7 +59,10 @@ class NewsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $news = News::find($id);
+        return inertia::render('Admin/News/Form', [
+            'news' => $news,
+        ]);
     }
 
     /**
@@ -58,7 +70,15 @@ class NewsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $news = News::find($id);
+        $news->title = $request->title;
+        $news->content = $request->content;
+        $news->image = null; // TODO: Implement image upload
+        $news->slug = $request->slug;
+        $news->user_id = auth()->id();
+        $news->save();
+
+        return redirect()->route('news.index')->with('success', 'News updated successfully');
     }
 
     /**
@@ -66,6 +86,9 @@ class NewsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $news = News::find($id);
+        $news->delete();
+
+        return redirect()->route('news.index')->with('success', 'News deleted successfully');
     }
 }
