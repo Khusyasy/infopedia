@@ -1,13 +1,29 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, useForm} from '@inertiajs/vue3';
 import Navbar from '@/Components/Navbar.vue';
 
-defineProps({
+const props = defineProps({
   news: {
     type: Object,
     required: true
   },
+  comments: {
+    type: Array,
+    required: true
+  }
 });
+
+const form = useForm({
+  content: '',
+  news_id: props.news.id,
+  slug: props.news.slug,
+});
+
+const submit = () => {
+    form.post(route('comments.store'), {
+        onSuccess: () => {form.reset()},
+    });
+};
 
 </script>
 
@@ -43,32 +59,24 @@ defineProps({
     <div class="bg-gray-100">
       <div class="container mx-auto p-4">
         <h3 class="text-gray-800 text-xl font-bold">Comments</h3>
-        <form action="#" method="post" class="mt-4">
+        <form v-if="$page.props.auth.user" @submit.prevent="submit" class="mt-4">
           <div class="flex flex-row items-center gap-4">
-            <textarea type="text" class="w-full p-2 border border-gray-300 rounded" placeholder="Write a comment..." />
+            <textarea v-model="form.content" class="w-full p-2 border border-gray-300 rounded" placeholder="Write a comment..." />
             <button type="submit" class="bg-green-300 text-gray-900 px-4 py-2 rounded hover:bg-green-400">Post</button>
           </div>
         </form>
 
+        <div v-else class="mt-4">
+          <p class="text-gray-800">You need to login to post a comment.</p>
+        </div>
+
         <div class="flex flex-col items-center gap-4 mt-4">
-          <div class="flex flex-col gap-1 bg-gray-50 px-4 py-2 rounded-lg">
+          <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-1 bg-gray-50 px-4 py-2 rounded-lg w-full">
             <h4 class="font-semibold">
-              John Doe
+              {{ comment.user.name }}
             </h4>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, laboriosam quas at ipsam assumenda
-              perspiciatis
-              suscipit sed voluptate amet nam provident consequatur delectus vel porro.
-            </p>
-          </div>
-          <div class="flex flex-col gap-1 bg-gray-50 px-4 py-2 rounded-lg">
-            <h4 class="font-semibold">
-              John Doe
-            </h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, laboriosam quas at ipsam assumenda
-              perspiciatis
-              suscipit sed voluptate amet nam provident consequatur delectus vel porro.
+              {{ comment.content }}
             </p>
           </div>
         </div>

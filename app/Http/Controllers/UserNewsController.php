@@ -20,6 +20,10 @@ class UserNewsController extends Controller
     {
         return Inertia::render('News', [
             'news' => News::where('slug', $slug)->first(),
+            'comments' => News::where('slug', $slug)->first()->comments()->with('user')->get(),
+            
         ]);
     }
+
 }
+
