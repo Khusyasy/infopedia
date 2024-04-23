@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\News;
 use Inertia\Response;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
@@ -31,8 +33,9 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        $news = new News();
         $image = $request->file('image')->store('news', 'public');
+
+        $news = new News();
         $news->title = $request->title;
         $news->content = $request->content;
         $news->image = $image;
@@ -73,7 +76,11 @@ class NewsController extends Controller
         $news = News::find($id);
         $news->title = $request->title;
         $news->content = $request->content;
-        $news->image = null; // TODO: Implement image upload
+        if ($request->file('image')) {
+            Storage::disk('public')->delete($news->image);
+            $image = $request->file('image')->store('news', 'public');
+            $news->image = $image;
+        }
         $news->slug = $request->slug;
         $news->user_id = auth()->id();
         $news->save();
@@ -87,6 +94,7 @@ class NewsController extends Controller
     public function destroy(string $id)
     {
         $news = News::find($id);
+        Storage::disk('public')->delete($news->image);
         $news->delete();
 
         return redirect()->route('news.index')->with('success', 'News deleted successfully');
