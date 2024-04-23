@@ -6,13 +6,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Controllers\NewsController;
-use App\Models\News;
+use App\Http\Controllers\UserNewsController;
 
-Route::get('/', function () {
-    return Inertia::render('Home', [
-        'news' => News::all(),
-    ]);
-})->name('home');
+Route::get('/', [UserNewsController::class, 'index'])->name('home');
 
 Route::get('/bookmarks', function () {
     // You can replace this with the actual controller method or view for the bookmarks page
@@ -34,3 +30,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+Route::get('/{slug}', [UserNewsController::class, 'show'])->name('unews');
+Route::post('/{slug}/bookmark', [UserNewsController::class, 'show'])->name('unews.bookmark');
