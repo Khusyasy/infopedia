@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Controllers\NewsController;
+use App\Models\News;
 
 Route::get('/', function () {
     return Inertia::render('Home', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
+        'news' => News::all(),
     ]);
 })->name('home');
 
