@@ -7,9 +7,9 @@
         <h3 class="text-lg font-bold leading-tight mb-2">
           {{ item.title }}
         </h3>
-        <p class="hidden md:block text-gray-600 leading-tight mb-1">
-          {{ item.content.substring(0, 150) }}
-        </p>
+        <div class="hidden md:block text-gray-600 leading-tight mb-1" v-html="item.content.substring(0, 150)">
+
+        </div>
       </div>
     </div>
   </a>

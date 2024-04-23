@@ -2,6 +2,8 @@
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
+import AddNews from '@/Components/AddNews.vue';
+
 const props = defineProps({
     news: {
         type: Object,
@@ -65,8 +67,9 @@ const submit = () => {
 
             <div>
               <label for="content" class="block text-sm font-medium text-white">Content</label>
-              <textarea name="content" id="content" v-model="form.content" required
-                class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+              
+              <AddNews v-model="form.content"/>
+               
             </div>
 
             <div>
