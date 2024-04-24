@@ -14,12 +14,13 @@ const form = useForm({
   title: props.news?.title ?? '',
   slug: props.news?.slug ?? '',
   content: props.news?.content ?? '',
-  image: null, // TODO: handle image
+  image: null,
+  _method: props.news ? 'put' : 'post',
 });
 
 const submit = () => {
   if (props.news) {
-    form.put(route('news.update', props.news.id), {
+    form.post(route('news.update', props.news.id), {
       onFinish: () => form.reset(),
     });
   } else {
@@ -67,15 +68,16 @@ const submit = () => {
 
             <div>
               <label for="content" class="block text-sm font-medium text-white">Content</label>
-              
-              <AddNews v-model="form.content"/>
-               
+
+              <AddNews v-model="form.content" />
+
             </div>
 
             <div>
               <label for="image" class="block text-sm font-medium text-white">Image</label>
               <input type="file" name="image" id="image" @change="form.image = $event.target.files[0]"
-                class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                :required="news == null" accept="image/*"
+                class="text-white mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
             </div>
 
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

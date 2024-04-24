@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -13,10 +14,7 @@ use App\Http\Controllers\SearchController;
 Route::get('/search',[SearchController::class, 'index'])->name('search');
 Route::get('/', [UserNewsController::class, 'index'])->name('home');
 
-Route::get('/bookmarks', function () {
-    // You can replace this with the actual controller method or view for the bookmarks page
-    return Inertia::render('Bookmarks');
-})->middleware(['auth'])->name('bookmarks');
+Route::get('/bookmarks', [BookmarkController::class, 'index'])->middleware(['auth'])->name('bookmarks');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -36,5 +34,8 @@ require __DIR__ . '/auth.php';
 
 
 Route::get('/{slug}', [UserNewsController::class, 'show'])->name('unews');
-Route::post('/{slug}/bookmark', [UserNewsController::class, 'show'])->name('unews.bookmark');
+Route::post('/{slug}/bookmark', [BookmarkController::class, 'store'])->name('unews.bookmark');
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+
+Route::delete('/{slug}/bookmark', [BookmarkController::class, 'destroy'])->name('unews.bookmark.destroy');
+
