@@ -18,6 +18,11 @@ class UserNewsController extends Controller
 
     public function show(String $slug): Response
     {
+        $news = News::where('slug', $slug)->first();
+
+        if (!$news) {
+            abort(404); 
+        }
         return Inertia::render('News', [
             'news' => News::where('slug', $slug)->first(),
             'comments' => News::where('slug', $slug)->first()->comments()->with('user')->get(),
