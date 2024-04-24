@@ -9,12 +9,15 @@ use Inertia\Inertia;
 
 class SearchController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $query = $request->input('query');
+        $news = News::where('title', 'like', "%$query%")->get();
         return inertia::render('Search', [
-            'news' => News::all()
+            'news' => $news
         ]);
     }
+    
 
 
 
