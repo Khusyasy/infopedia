@@ -21,14 +21,19 @@ class UserNewsController extends Controller
         $news = News::where('slug', $slug)->first();
 
         if (!$news) {
-            abort(404); 
+            abort(404);
+        }
+        if (auth()->check()) {
+            return Inertia::render('News', [
+                'news' => $news,
+                'comments' => $news->comments()->with('user')->get(),
+                'bookmarked' => auth()->user()->bookmarks()->where('news_id', $news->id)->exists(),
+            ]);
         }
         return Inertia::render('News', [
-            'news' => News::where('slug', $slug)->first(),
-            'comments' => News::where('slug', $slug)->first()->comments()->with('user')->get(),
-            'bookmarked' => auth()->user()->bookmarks()->where('news_id', News::where('slug', $slug)->first()->id)->exists(),
+            'news' => $news,
+            'comments' => $news->comments()->with('user')->get(),
+            'bookmarked' => false,
         ]);
     }
-
 }
-

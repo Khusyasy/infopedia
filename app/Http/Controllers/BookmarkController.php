@@ -16,7 +16,9 @@ class BookmarkController extends Controller
     }
 
     public function store(
-        Request $request, String $slug) {
+        Request $request,
+        String $slug
+    ) {
 
         auth()->user()->bookmarks()->create([
             'news_id' => News::where('slug', $slug)->first()->id,
@@ -26,7 +28,9 @@ class BookmarkController extends Controller
     }
 
     public function destroy(
-        Request $request, String $slug) {
+        Request $request,
+        String $slug
+    ) {
 
         auth()->user()->bookmarks()->where('news_id', News::where('slug', $slug)->first()->id)->delete();
 

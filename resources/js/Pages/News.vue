@@ -13,7 +13,6 @@ const props = defineProps({
   },
   bookmarked: {
     type: Boolean,
-    required: true
   }
 });
 
@@ -43,12 +42,15 @@ const submit = () => {
         <h2 class="text-gray-800 text-2xl font-bold">
           {{ news.title }}
         </h2>
-        <Link v-if='!bookmarked' :href="route('unews.bookmark', news.slug)" method="post" as="button"
+        <div v-if="!$page.props.auth.user" class="text-gray-900 bg-gray-300 px-4 py-2 rounded">
+          Login to bookmark
+        </div>
+        <Link v-else-if='!bookmarked' :href="route('unews.bookmark', news.slug)" method="post" as="button"
           class="text-gray-900 bg-green-300 px-4 py-2 rounded hover:bg-green-400">
         Bookmark
         </Link>
         <Link v-else :href="route('unews.bookmark.destroy', news.slug)" method="delete" as="button"
-          class="text-white bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">
+          class="text-gray-900 bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">
         Unbookmark
         </Link>
       </div>
