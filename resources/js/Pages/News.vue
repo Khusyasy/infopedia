@@ -53,12 +53,12 @@ const submit = () => {
         </Link>
       </div>
 
-      <div class="w-full p-4 flex items-center justify-center drop-shadow max-h-[50vh] overflow-hidden">
+      <div class="w-full p-4 m-4 flex items-center justify-center drop-shadow max-h-[50vh] overflow-hidden">
         <img :src="'/storage/' + news.image" :alt="news.title + ' image'" class="w-[50vw] h-auto  rounded-md" />
       </div>
 
       <div class="w-full">
-        <div class="text-gray-800 text-base prose" v-html="news.content">
+        <div class="text-gray-800 text-base prose-xl text-justify w-full" v-html="news.content">
 
         </div>
       </div>
