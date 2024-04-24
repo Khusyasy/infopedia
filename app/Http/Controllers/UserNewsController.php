@@ -21,7 +21,7 @@ class UserNewsController extends Controller
         return Inertia::render('News', [
             'news' => News::where('slug', $slug)->first(),
             'comments' => News::where('slug', $slug)->first()->comments()->with('user')->get(),
-            
+            'bookmarked' => auth()->user()->bookmarks()->where('news_id', News::where('slug', $slug)->first()->id)->exists(),
         ]);
     }
 

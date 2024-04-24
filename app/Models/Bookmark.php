@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Bookmark extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'news_id',
+    ];
+
+    public function news()
+    {
+        return $this->belongsTo(News::class);
+    }
 }
