@@ -13,9 +13,12 @@ defineProps({
 
   <!-- =========={ HERO SECTION }========== -->
   <section class="hero py-20">
-    <div class="container mx-auto px-4">
-      <h1 class="text-4xl font-bold text-black mb-4">Stay Informed with InfoPedia</h1>
-      <p class="text-black text-lg">Get the latest news and insights from around the world.</p>
+    <div class="container mx-auto px-4 flex flex-row items-center">
+      <img src="/img/logo_notext.png" class="h-40 mb-4">
+      <div>
+        <h1 class="text-4xl font-bold text-black mb-4">Stay Informed with InfoPedia</h1>
+        <p class="text-black text-lg">Get the latest news and insights from around the world.</p>
+      </div>
     </div>
   </section>
 
@@ -47,7 +50,7 @@ defineProps({
 
 <style>
 .hero {
-  background-image: url('D:\Github\infopedia\storage\app\public\test.jpg');
+  background-image: url('/img/Bg.jpg');
   background-size: cover;
   background-position: center;
 }
