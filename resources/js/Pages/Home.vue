@@ -11,8 +11,8 @@ defineProps({
   <Head title="InfoPedia" />
   <Navbar />
 
-  <!-- =========={ HERO SECTION }========== -->
-  <section class="hero py-20">
+  <!-- =========={ Head Section }========== -->
+  <section class="header py-20">
     <div class="container mx-auto px-4 flex flex-row items-center">
       <img src="/img/logo_notext.png" class="h-40 mb-4">
       <div>
@@ -49,7 +49,7 @@ defineProps({
 </template>
 
 <style>
-.hero {
+.header {
   background-image: url('/img/Bg.jpg');
   background-size: cover;
   background-position: center;
