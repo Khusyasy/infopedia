@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\News;
+use App\Models\User;
 use App\Http\Resources\NewsResource;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
@@ -35,8 +36,10 @@ class NewsController extends BaseController
 
         $comments = $news->comments()->with('user')->get();
         $bookmarked = false;
-        if ($request->user()) {
-            $bookmarked = $request->user()->bookmarks()->where('news_id', $news->id)->exists();
+        $userauth = $request->user('sanctum');
+        if ($userauth) {
+            $user = User::find($userauth->id);
+            $bookmarked = $user->bookmarks()->where('news_id', $news->id)->exists();
         }
         $comments = $news->comments()->with('user')->get();
         return $this->sendResponse([

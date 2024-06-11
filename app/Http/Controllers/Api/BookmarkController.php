@@ -7,6 +7,7 @@ use App\Models\News;
 use App\Http\Resources\NewsResource;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class BookmarkController extends BaseController
 {
@@ -14,7 +15,9 @@ class BookmarkController extends BaseController
         Request $request,
         String $slug
     ) {
-        $request->user()->bookmarks()->create([
+        $userauth = $request->user();
+        $user = User::find($userauth->id);
+        $user->bookmarks()->create([
             'news_id' => News::where('slug', $slug)->first()->id,
         ]);
         return $this->sendResponse(null);
@@ -24,7 +27,9 @@ class BookmarkController extends BaseController
         Request $request,
         String $slug
     ) {
-        $request->user()->bookmarks()->where('news_id', News::where('slug', $slug)->first()->id)->delete();
+        $userauth = $request->user();
+        $user = User::find($userauth->id);
+        $user->bookmarks()->where('news_id', News::where('slug', $slug)->first()->id)->delete();
         return $this->sendResponse(null);
     }
 }
