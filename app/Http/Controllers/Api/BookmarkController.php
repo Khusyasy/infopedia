@@ -11,6 +11,14 @@ use App\Models\User;
 
 class BookmarkController extends BaseController
 {
+    public function index(Request $request)
+    {
+        $userauth = $request->user();
+        $user = User::find($userauth->id);
+        $news = $user->bookmarks()->with('news')->get()->pluck('news');
+        return $this->sendResponse($news);
+    }
+
     public function store(
         Request $request,
         String $slug

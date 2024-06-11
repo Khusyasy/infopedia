@@ -23,6 +23,8 @@ Route::get('/news/{slug}', [NewsController::class, 'show'])->name('api.news.show
 
 Route::get('/search', [SearchController::class, 'index'])->name('api.search');
 
+Route::get('/bookmark', [BookmarkController::class, 'index'])->name('api.bookmark.show')
+    ->middleware('auth:sanctum');
 Route::post('/news/{slug}/bookmark', [BookmarkController::class, 'store'])->name('api.bookmark')
     ->middleware('auth:sanctum');
 Route::delete('/news/{slug}/bookmark', [BookmarkController::class, 'destroy'])->name('api.bookmark.destroy')
